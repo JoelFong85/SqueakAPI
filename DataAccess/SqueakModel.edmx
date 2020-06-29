@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SqueakModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SqueakModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="T_Game_Session_Players">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,43 +45,36 @@
             <End Role="T_Game_Session_Players" EntitySet="T_Game_Session_Players" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SqueakModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="SqueakEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="T_Game_Session_Players" EntityType="SqueakModel.T_Game_Session_Players" />
-          <EntitySet Name="T_Game_Sessions" EntityType="SqueakModel.T_Game_Sessions" />
-          <AssociationSet Name="FK__T_Game_Se__Sessi__4222D4EF" Association="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF">
-            <End Role="T_Game_Sessions" EntitySet="T_Game_Sessions" />
-            <End Role="T_Game_Session_Players" EntitySet="T_Game_Session_Players" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="T_Game_Session_Players">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SessionId" Type="Int64" Nullable="false" />
-          <Property Name="PlayerName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PlayerName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="JoinTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="RequestAppId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="T_Game_Sessions" Relationship="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF" FromRole="T_Game_Session_Players" ToRole="T_Game_Sessions" />
+          <Property Name="DeviceId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RequestAppId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="T_Game_Sessions" Relationship="Self.FK__T_Game_Se__Sessi__4222D4EF" FromRole="T_Game_Session_Players" ToRole="T_Game_Sessions" />
         </EntityType>
         <EntityType Name="T_Game_Sessions">
           <Key>
             <PropertyRef Name="SessionId" />
           </Key>
           <Property Name="SessionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SessionPin" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="SessionPin" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SessionIsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="T_Game_Session_Players" Relationship="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF" FromRole="T_Game_Sessions" ToRole="T_Game_Session_Players" />
+          <NavigationProperty Name="T_Game_Session_Players" Relationship="Self.FK__T_Game_Se__Sessi__4222D4EF" FromRole="T_Game_Sessions" ToRole="T_Game_Session_Players" />
         </EntityType>
         <Association Name="FK__T_Game_Se__Sessi__4222D4EF">
-          <End Type="SqueakModel.T_Game_Sessions" Role="T_Game_Sessions" Multiplicity="1" />
-          <End Type="SqueakModel.T_Game_Session_Players" Role="T_Game_Session_Players" Multiplicity="*" />
+          <End Role="T_Game_Sessions" Type="Self.T_Game_Sessions" Multiplicity="1" />
+          <End Role="T_Game_Session_Players" Type="Self.T_Game_Session_Players" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Game_Sessions">
               <PropertyRef Name="SessionId" />
@@ -91,31 +84,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="SqueakEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_Game_Session_Players" EntityType="Self.T_Game_Session_Players" />
+          <EntitySet Name="T_Game_Sessions" EntityType="Self.T_Game_Sessions" />
+          <AssociationSet Name="FK__T_Game_Se__Sessi__4222D4EF" Association="Self.FK__T_Game_Se__Sessi__4222D4EF">
+            <End Role="T_Game_Sessions" EntitySet="T_Game_Sessions" />
+            <End Role="T_Game_Session_Players" EntitySet="T_Game_Session_Players" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SqueakModelStoreContainer" CdmEntityContainer="SqueakEntities" >
+        <EntityContainerMapping StorageEntityContainer="SqueakModelStoreContainer" CdmEntityContainer="SqueakEntities">
           <EntitySetMapping Name="T_Game_Session_Players">
             <EntityTypeMapping TypeName="SqueakModel.T_Game_Session_Players">
               <MappingFragment StoreEntitySet="T_Game_Session_Players">
-                <ScalarProperty Name="RequestAppId" ColumnName="RequestAppId" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
-                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
-                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+                <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="RequestAppId" ColumnName="RequestAppId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="T_Game_Sessions">
             <EntityTypeMapping TypeName="SqueakModel.T_Game_Sessions">
               <MappingFragment StoreEntitySet="T_Game_Sessions">
-                <ScalarProperty Name="SessionIsActive" ColumnName="SessionIsActive" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="SessionPin" ColumnName="SessionPin" />
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="SessionPin" ColumnName="SessionPin" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="SessionIsActive" ColumnName="SessionIsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

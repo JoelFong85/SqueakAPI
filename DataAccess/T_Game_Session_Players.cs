@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Squeak
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;

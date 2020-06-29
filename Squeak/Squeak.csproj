@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataAccess">
+      <HintPath>..\DataAccess\bin\Debug\DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -208,27 +211,6 @@
     <Compile Include="Models\CreateGame\JoinSessionRequestModel.cs" />
     <Compile Include="Models\CreateGame\JoinSessionResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqueakModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SqueakModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SqueakModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SqueakModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SqueakModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SqueakModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="T_Game_Sessions.cs">
-      <DependentUpon>SqueakModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="T_Game_Session_Players.cs">
-      <DependentUpon>SqueakModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -270,16 +252,6 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="SqueakModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SqueakModel.edmx</DependentUpon>
-      <LastGenOutput>SqueakModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="SqueakModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SqueakModel.edmx</DependentUpon>
-      <LastGenOutput>SqueakModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -294,13 +266,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <EntityDeploy Include="SqueakModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SqueakModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="SqueakModel.edmx.diagram">
-      <DependentUpon>SqueakModel.edmx</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
