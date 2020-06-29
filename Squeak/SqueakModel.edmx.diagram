@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="186e0fdfc95249bc8134292765ff90dc" Name="Diagram1" >
+        <EntityTypeShape EntityType="SqueakModel.T_Game_Session_Players" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="SqueakModel.T_Game_Sessions" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

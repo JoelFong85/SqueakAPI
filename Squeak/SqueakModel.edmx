@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SqueakModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_Game_Session_Players">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionId" Type="bigint" Nullable="false" />
+          <Property Name="PlayerName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="JoinTime" Type="datetime" Nullable="false" />
+          <Property Name="DeviceId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RequestAppId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Game_Sessions">
+          <Key>
+            <PropertyRef Name="SessionId" />
+          </Key>
+          <Property Name="SessionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionPin" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="SessionIsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__T_Game_Se__Sessi__4222D4EF">
+          <End Role="T_Game_Sessions" Type="Self.T_Game_Sessions" Multiplicity="1" />
+          <End Role="T_Game_Session_Players" Type="Self.T_Game_Session_Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Game_Sessions">
+              <PropertyRef Name="SessionId" />
+            </Principal>
+            <Dependent Role="T_Game_Session_Players">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SqueakModelStoreContainer">
+          <EntitySet Name="T_Game_Session_Players" EntityType="Self.T_Game_Session_Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Game_Sessions" EntityType="Self.T_Game_Sessions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__T_Game_Se__Sessi__4222D4EF" Association="Self.FK__T_Game_Se__Sessi__4222D4EF">
+            <End Role="T_Game_Sessions" EntitySet="T_Game_Sessions" />
+            <End Role="T_Game_Session_Players" EntitySet="T_Game_Session_Players" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SqueakModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SqueakEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="T_Game_Session_Players" EntityType="SqueakModel.T_Game_Session_Players" />
+          <EntitySet Name="T_Game_Sessions" EntityType="SqueakModel.T_Game_Sessions" />
+          <AssociationSet Name="FK__T_Game_Se__Sessi__4222D4EF" Association="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF">
+            <End Role="T_Game_Sessions" EntitySet="T_Game_Sessions" />
+            <End Role="T_Game_Session_Players" EntitySet="T_Game_Session_Players" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="T_Game_Session_Players">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="Int64" Nullable="false" />
+          <Property Name="PlayerName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="JoinTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RequestAppId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Game_Sessions" Relationship="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF" FromRole="T_Game_Session_Players" ToRole="T_Game_Sessions" />
+        </EntityType>
+        <EntityType Name="T_Game_Sessions">
+          <Key>
+            <PropertyRef Name="SessionId" />
+          </Key>
+          <Property Name="SessionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionPin" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SessionIsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="T_Game_Session_Players" Relationship="SqueakModel.FK__T_Game_Se__Sessi__4222D4EF" FromRole="T_Game_Sessions" ToRole="T_Game_Session_Players" />
+        </EntityType>
+        <Association Name="FK__T_Game_Se__Sessi__4222D4EF">
+          <End Type="SqueakModel.T_Game_Sessions" Role="T_Game_Sessions" Multiplicity="1" />
+          <End Type="SqueakModel.T_Game_Session_Players" Role="T_Game_Session_Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Game_Sessions">
+              <PropertyRef Name="SessionId" />
+            </Principal>
+            <Dependent Role="T_Game_Session_Players">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SqueakModelStoreContainer" CdmEntityContainer="SqueakEntities" >
+          <EntitySetMapping Name="T_Game_Session_Players">
+            <EntityTypeMapping TypeName="SqueakModel.T_Game_Session_Players">
+              <MappingFragment StoreEntitySet="T_Game_Session_Players">
+                <ScalarProperty Name="RequestAppId" ColumnName="RequestAppId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
+                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Game_Sessions">
+            <EntityTypeMapping TypeName="SqueakModel.T_Game_Sessions">
+              <MappingFragment StoreEntitySet="T_Game_Sessions">
+                <ScalarProperty Name="SessionIsActive" ColumnName="SessionIsActive" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="SessionPin" ColumnName="SessionPin" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

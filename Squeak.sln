@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squeak", "Squeak\Squeak.csproj", "{ACB222E5-A919-4F70-AE65-36A7F1843638}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACB222E5-A919-4F70-AE65-36A7F1843638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB222E5-A919-4F70-AE65-36A7F1843638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB222E5-A919-4F70-AE65-36A7F1843638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB222E5-A919-4F70-AE65-36A7F1843638}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00371DAB-3D44-44A2-8E77-27839DA4F54B}
+	EndGlobalSection
+EndGlobal
