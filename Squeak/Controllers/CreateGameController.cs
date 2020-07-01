@@ -15,34 +15,32 @@ namespace Squeak.Controllers
     {
         [HttpPost]
         [Route("api/CreateGame/CreateSession")]
-        public async Task<CreateSessionResponseModel> CreateSession([FromBody]CreateSessionRequestModel model)
+        public async Task<CreateSessionResponseModel> CreateSession([FromBody] CreateSessionRequestModel model)
         {
             try
             {
                 var blCreateGame = new BL_CreateGame();
                 return await blCreateGame.CreationSessionAsync(model);
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                //log error
+                ApplicationFactory.CurrentLogger.Error($"CreateGameController > CreateSession error. {ex.Message}");
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message));
             }
         }
 
         [HttpPost]
         [Route("api/CreateGame/JoinSession")]
-        public async Task<JoinSessionResponseModel> JoinSession([FromBody]JoinSessionRequestModel model)
+        public async Task<JoinSessionResponseModel> JoinSession([FromBody] JoinSessionRequestModel model)
         {
             try
             {
                 var blCreateGame = new BL_CreateGame();
                 return await blCreateGame.JoinSessionAsync(model);
-
             }
             catch (Exception ex)
             {
-                //log error
+                ApplicationFactory.CurrentLogger.Error($"CreateGameController > JoinSession error. {ex.Message}");
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message));
             }
         }

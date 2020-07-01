@@ -1,5 +1,8 @@
 ﻿using DataAccess;
+using FluentValidation.Results;
+using log4net.Filter;
 using Squeak.Models.CreateGame;
+using Squeak.Validators.CreateGame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +17,6 @@ namespace Squeak.BusinessLogic
 
         // add constructors in future if needed to read header auth tokens
 
-
         #region CreateSession
         public async Task<CreateSessionResponseModel> CreationSessionAsync(CreateSessionRequestModel model)
         {
@@ -23,17 +25,26 @@ namespace Squeak.BusinessLogic
 
         public CreateSessionResponseModel CreateSession(CreateSessionRequestModel model)
         {
-            ApplicationFactory.CurrentLogger.Info($@"BL_CreateGame > CreateSession start. 
-                                                    Player Name: {model.Name} | 
-                                                    Device Id: {model.DeviceId} | 
-                                                    App Id: {model.AppId}
-                                                    ");
-
-            //validation - fluent validation
-            CreateSessionResponseModel result = new CreateSessionResponseModel()
+            try
             {
-                SessionPin = "0"
-            };
+                ApplicationFactory.LogWithObject($@"BL_CreateGame > CreateSession start.", model);
+
+                ApplicationFactory.ValidateRequestModel(new CreateSessionRequestModelValidator(), model);
+
+                //refactor using validator
+                if (model.Name.Length > 10)
+                {
+                    //result.Message = "Player name has maximum length of 10 characters.";
+                    //throw new Exception(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                ApplicationFactory.CurrentLogger.Error($"BL_CreateGame > CreateSession error. {ex.Message}");
+                //return structured response
+            }
+
+            CreateSessionResponseModel result = new CreateSessionResponseModel() { SessionPin = "0" };
 
             try
             {
@@ -63,14 +74,14 @@ namespace Squeak.BusinessLogic
                 db.SaveChanges();
 
                 result.SessionPin = sessionPin;
-
-                ApplicationFactory.CurrentLogger.Info($"BL_CreateGame > CreateSession success. {result.SessionPin}");
             }
             catch (Exception ex)
             {
                 ApplicationFactory.CurrentLogger.Error($"BL_CreateGame > CreateSession error. {ex.Message}");
+                //return structured response
             }
 
+            ApplicationFactory.LogWithObject($"BL_CreateGame > CreateSession success.", result);
             return result;
         }
 
@@ -99,15 +110,16 @@ namespace Squeak.BusinessLogic
 
         public JoinSessionResponseModel JoinSession(JoinSessionRequestModel model)
         {
-            //log input
+            ApplicationFactory.CurrentLogger.Info($@"BL_CreateGame > JoinSession start. SessionPin: {model.SessionPin} | Player Name: {model.Name} | Device Id: {model.DeviceId} | App Id: {model.AppId}");
 
-            //validation - fluent validation
+            ApplicationFactory.ValidateRequestModel(new JoinSessionRequestModelValidator(), model);
+
             JoinSessionResponseModel result = new JoinSessionResponseModel();
 
             try
             {
+                //refactor
                 var session = db.T_Game_Sessions.SingleOrDefault(m => m.SessionPin == model.SessionPin && m.SessionIsActive);
-
                 if (session.T_Game_Session_Players.Count() > 5)
                 {
                     result.Message = "There are too many players in the game.";
@@ -121,6 +133,7 @@ namespace Squeak.BusinessLogic
                     throw new Exception(result.Message);
                 }
 
+                //refactor using validator
                 if (model.Name.Length > 10)
                 {
                     result.Message = "Player name has maximum length of 10 characters.";
@@ -143,12 +156,11 @@ namespace Squeak.BusinessLogic
             }
             catch (Exception ex)
             {
-                //log error
+                ApplicationFactory.CurrentLogger.Error($"BL_CreateGame > JoinSession error. {ex.Message}");
                 result.Successful = false;
             }
 
-            //log success
-
+            ApplicationFactory.LogWithObject($"BL_CreateGame > JoinSession success.", result);
             return result;
         }
         #endregion
